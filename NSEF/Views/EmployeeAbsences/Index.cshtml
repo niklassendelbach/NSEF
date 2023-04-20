@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NSEF.Models.EmployeeAbsence>
+
+@{
+    ViewData["Title"] = "Absence";
+}
+
+<h1>Absence</h1>
+<p>
+    <a asp-action="Create" class="btn btn-success">New Absence</a>
+</p>
+<hr />
+<form asp-action="Index">
+    <div class="form-group">
+        <label for="SearchString" class="control-label">Search for specific employee:</label>
+        <input type="text" name="SearchString"   />
+            <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<hr />
+<a asp-action="Index">Remove filter</a>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Absences)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Absences.AbsenceType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeAbsenceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeAbsenceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EmployeeAbsenceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

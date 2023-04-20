@@ -1,0 +1,38 @@
+﻿@model IEnumerable<InfoViewModel>
+@{
+    ViewData["Title"] = "Requests";
+}
+
+<h1>Absences</h1>
+<form asp-action="Index">
+    <div class="form-group">
+        <label for="SearchMonth" class="control-label">Search for specific month:</label>
+        <input type="month" name="SearchMonth" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <th>@Html.DisplayNameFor(model => model.TotalDays)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+            @*<th>@Html.DisplayNameFor(model => model.EndDate)</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.TotalDays)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                @*<td>@Html.DisplayFor(modelItem => item.EndDate)</td>*@
+            </tr>
+        }
+    </tbody>
+
+</table>
+
