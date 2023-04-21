@@ -50,13 +50,19 @@ namespace NSEF.Controllers
 
             return View(employeeAbsence);
         }
+		public List<ListItem> GetList()
+		{
+			var db = _context;
+			return db.Employees.Select(x => new ListItem { ID = x.EmployeeId, Text = x.FirstName + " " + x.LastName }).ToList();
 
-        // GET: EmployeeAbsences/Create
-        public IActionResult Create()
+		}
+
+		// GET: EmployeeAbsences/Create
+		public IActionResult Create()
         {
             //Går det å ändra från ViewData till något annat för att visa både för- å efternamn istället för fk_empid?
             ViewData["FK_AbsenceId"] = new SelectList(_context.Absences, "AbsenceId", "AbsenceType");
-            ViewData["FK_EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName");
+            ViewBag.FK_EmployeeId = new SelectList(GetList(), "ID", "Text");
             return View();
         }
 
@@ -75,7 +81,7 @@ namespace NSEF.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FK_AbsenceId"] = new SelectList(_context.Absences, "AbsenceId", "AbsenceType", employeeAbsence.FK_AbsenceId);
-            ViewData["FK_EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", employeeAbsence.FK_EmployeeId);
+			ViewBag.FK_EmployeeId = new SelectList(GetList(), "ID", "Text", employeeAbsence.FK_EmployeeId);
             return View(employeeAbsence);
         }
 
@@ -93,8 +99,8 @@ namespace NSEF.Controllers
                 return NotFound();
             }
             ViewData["FK_AbsenceId"] = new SelectList(_context.Absences, "AbsenceId", "AbsenceType", employeeAbsence.FK_AbsenceId);
-            ViewData["FK_EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", employeeAbsence.FK_EmployeeId);
-            return View(employeeAbsence);
+			ViewBag.FK_EmployeeId = new SelectList(GetList(), "ID", "Text", employeeAbsence.FK_EmployeeId);
+			return View(employeeAbsence);
         }
 
         // POST: EmployeeAbsences/Edit/5
@@ -130,8 +136,8 @@ namespace NSEF.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FK_AbsenceId"] = new SelectList(_context.Absences, "AbsenceId", "AbsenceType", employeeAbsence.FK_AbsenceId);
-            ViewData["FK_EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", employeeAbsence.FK_EmployeeId);
-            return View(employeeAbsence);
+			ViewBag.FK_EmployeeId = new SelectList(GetList(), "ID", "Text", employeeAbsence.FK_EmployeeId);
+			return View(employeeAbsence);
         }
 
         // GET: EmployeeAbsences/Delete/5
